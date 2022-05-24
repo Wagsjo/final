@@ -1,19 +1,33 @@
-const express = require('express')
-const app = express()
-const cors = require('cors')
-const PORT = 1337
-const distPath = __dirname +'/../dist/'
+import express from "express";
+const app = express();
+import cors from "cors";
+import path from "path";
+const __dirname = path.resolve(path.dirname(""));
+const distPath = path.join(__dirname + "/../dist/");
+import read from "./routes/read.js";
+import post from "./routes/post.js";
+import put from "./routes/put.js";
+import dele from "./routes/delete.js";
 
-app.use(cors())
-app.use(express.urlencoded({extended:true}))
-app.use(express.static(distPath))
+app.use(cors());
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(distPath));
+app.use("/img", express.static(path.join(__dirname, "./hamsterImages/")));
 
+app.use((req, res, next) => {
+  console.log(`${req.method} ${req.url}`, req.body);
+  next();
+});
 
-app.get('/', (req,res) => {
-  console.log('asd')
-  res.send('Hej')
-})
+app.get("/", (req, res) => {
+  console.log("asd");
+  res.send("Hej");
+});
 
+app.use("/hamsters", read, post, put, dele);
+
+const PORT = process.env.PORT || 1234;
 app.listen(PORT, () => {
-  console.log('App is running on ', PORT )
-})
+  console.log("app is running on", PORT);
+});

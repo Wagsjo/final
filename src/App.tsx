@@ -1,44 +1,55 @@
-import { useState } from 'react'
-import logo from './logo.svg'
+import { useState, useEffect } from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import {fixUrl} from './utils'
+import { useRecoilState } from 'recoil'
+import { hamsterObject } from './AtomsAndModels/atoms'
 import './App.css'
+import Header from './komponenter/Header'
+import Fight from './komponenter/Fight'
+import Galleri from './komponenter/Galleri'
+import Home from './komponenter/Home'
 
 function App() {
-  const [count, setCount] = useState(0)
+  // const [hamsterData, setData] = useState<string[] | null> (null)
+  // async function getData(): Promise<void> {
+  //   const response = await fetch(fixUrl('/fruits'))
+  //   const data = await response.json()
+  //   setData(data)
+  // }
+  const [hamster, setHamster] = useRecoilState(hamsterObject)
+
+    useEffect(() => {
+    fetch(fixUrl('/hamsters'))
+    .then(asd => asd.json())
+    .then(show => {
+      setHamster(show)
+    })
+  }, [])
+
+
+
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
+    <Router>
+      <div className="App">
+        <Header></Header>
+        
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/fight" element={ <Fight />} />
+            <Route path="/galleri" element={ <Galleri /> } />
+          </Routes>
+        </div>
+        <main>
+          {/* {<button onClick={getData}>¨get data from api</button>
+          <section> {hamsterData ? (
+            hamsterData.map(h => <p> {h} </p>)}
+          ) : "nej det har inte kommit än"} </section> */}
+          {/* <img src={fixUrl('/img/bild.jpg')} /> */}
+        </main>
+      </div>
+    </Router>
   )
 }
 

@@ -1,0 +1,39 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+header {
+  height: 100px;
+  display: flex;
+  justify-content: space-around;
+
+}
+.h-left, .h-middle, .h-right {
+  height: 100%;
+  background-color: #778899;
+  font-style: oblique;
+}
+.h-left {
+  width: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.h-middle {
+  width: 30%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.h-right {
+  width: 50%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.h-left-link {
+  text-decoration: none;
+  color: #000000
+}

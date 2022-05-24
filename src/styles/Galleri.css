@@ -1,0 +1,21 @@
+* {
+  text-decoration: none;
+}
+ul {
+  border: 3px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 1000%;
+  flex-wrap: wrap;
+}
+li {
+  list-style: none;
+  border: 3px solid brown;
+}
+.card-container {
+  border: 3px solid black;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
