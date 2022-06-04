@@ -1,53 +1,61 @@
-import { useEffect, useState } from "react"
 import '../styles/Card.css'
-import { hamsterObject } from '../AtomsAndModels/atoms'
-import { useRecoilValue, useRecoilState } from 'recoil'
+import { Hamster } from "../AtomsAndModels/HamsterModel"
+import { fixUrl } from "../utils"
+import {useRecoilState} from 'recoil'
+import { hamsterObject } from "../AtomsAndModels/atoms"
+import { useState } from 'react'
 
 interface Props {
-  title: Number;
+  HamsterObj: Hamster;
 }
 
+const Card = (prop:Props) => {
 
-const Card = (props:Props) => {
+  const [hamsters, setHamsters] = useRecoilState (hamsterObject)
+  function img(prop: { HamsterObj: { imgName: string } }) {
+    return (
+      <div className={'property-image'} style={{backgroundImage: `url(${fixUrl('/img/' + prop.HamsterObj.imgName)})`}}></div>
+    )
+  }
 
-  const [page, changepage] = useState(0)
-  const hamster = useRecoilValue(hamsterObject)
-
-  useEffect(() => {
-    if(props.title == 1) {
-      changepage(1)
-      console.log(hamster)
-    }
-    if(props.title == 2) {
-      changepage(2)
-      console.log(hamster)
-    }
-
-  }, [])
+function del(id: string | null) {
+  // prompt('Säker på att du vill radera denna hamster?')
+  fetch(fixUrl(`/hamsters/${id}`), {
+      method: 'DELETE',
+    })
+    let newHamsters = hamsters.filter(h => {
+      if(h.uid !== id) {
+        return true
+      } else {
+        return false
+      }
+    })
+    setHamsters(newHamsters)
+}
 
   return (
     <div>
-      {page === 1 ? hamster.map((h, i)=> {
-          return <div className='hej' key={i}>
-        <div className={'center' + (page === 1 ? 1 : '')}>
-          <div className={'property-card' + (page === 1 ? 1 : '')}>
-            <a href="#">
-              <div className={'property-image' + (page === 1 ? 1 : '')}>
-                <div className={'property-image-title' + (page === 1 ? 1 : '')}>
-                  <h5 key={h.name}> {h.name} </h5>
-                </div>
-              </div>
-                </a>
-              <div className={'property-description' + (page === 1 ? 1 : '')}>
-                <h5> Card Title </h5>
-                <p>Lorem Ipsum Dipsum hortata. Mixcall Horcho. Mixwell Chingo. More Bingo. Lorem Ipum doth be hard.</p>
+      {prop.HamsterObj ?
+        (<div className='cont'  onClick={() => del(prop.HamsterObj.uid)}>
+            <div className={'property-card'}>
+              <a href="#">
+                {img(prop)}
+              </a>
+              <div className={'property-description'}>
+                <h5> {prop.HamsterObj.name} </h5>
+                <p>Älskar att: {prop.HamsterObj.loves} </p>
+                <p>{prop.HamsterObj.age} år gammal </p>
+                <p>ID: {prop.HamsterObj.uid} </p>
+                <p>Totala vinster: {prop.HamsterObj.wins} </p>
+                <p>Totala förluster: {prop.HamsterObj.defeats} </p>
+                <p>Totala matcher: {prop.HamsterObj.games} </p>
+                <p>Äter helst: {prop.HamsterObj.favFood} </p>
               </div>
               <a href="#">
-            </a>
-          </div>
-        </div>
-      </div>
-        }): <p> hejhej</p>}
+              </a>
+            </div>
+        </div>) :
+        <p> hejhej</p>}
 
       </div>
   )

@@ -18,7 +18,7 @@ router.post("/", (req, res) => {
   async function asd() {
     const docRef = await addDoc(collection(db, "hamsters"), bodyy);
     const readDoc = await getDoc(docRef);
-    const idd = { id: readDoc.id };
+    const idd = { uid: readDoc.id };
     await setDoc(docRef, idd, { merge: true });
     const lastTime = await getDoc(docRef);
     const output = lastTime.data();

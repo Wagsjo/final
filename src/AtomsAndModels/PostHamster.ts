@@ -1,12 +1,11 @@
 export interface Hamster {
   age: number | null | string
-  defeats: number
+  defeats: number | null
   favFood: string | null
-  games: number 
-  imgName: string
+  games: number | null
+  imgName: string | null
   loves: string | null
   name: string | null
-  uid: string | null
-  wins: number
+  wins: number | null
   // children?: JSX.Element|JSX.Element[] | any;
 }

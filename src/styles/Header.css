@@ -12,7 +12,7 @@ header {
 }
 .h-left, .h-middle, .h-right {
   height: 100%;
-  background-color: #778899;
+  background-color: #5b5d5f;
   font-style: oblique;
 }
 .h-left {

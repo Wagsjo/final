@@ -1,29 +1,37 @@
 import { useState, useEffect } from "react"
 import '../styles/Home.css'
-import { useRecoilValue } from "recoil"
+import { useRecoilValue, useRecoilState } from "recoil"
 import { hamsterObject } from "../AtomsAndModels/atoms"
 import { Hamster } from "../AtomsAndModels/HamsterModel"
+import { fixUrl } from "../utils"
+import Card from "./Card"
 
 const Home = () => {
-  let hamsters = useRecoilValue (hamsterObject)
-  const [cutest, setCutest] = useState()
+  const hamsters = useRecoilValue (hamsterObject)
+  const [cutest, setCutest] = useState<null | Hamster>(null)
+
+  useEffect(() => {
+    findCutest()
+  }, [hamsters])
 
   function findCutest() {
     let temporaryCutest = hamsters[0]
     hamsters.forEach((h) => {
-      if(h.wins > temporaryCutest.wins) {
-        console.log(h)
+      if((h.wins - h.defeats) > (temporaryCutest.wins - temporaryCutest.defeats)) {
+        temporaryCutest = h
       }
     })
+    setCutest(temporaryCutest)
   }
-  findCutest()
+
   return (
     <div>
-      <button >Visa den sötaste hamstern</button>
       <div className="container" >
-        <div className="popular">
-
-        </div>
+        {cutest ? (
+          <>
+          <Card HamsterObj={cutest}></Card>
+          </>) : 'No hamster to show right now'
+        }
       </div>
     </div>
   )

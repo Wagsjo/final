@@ -1,3 +1,43 @@
-.card-container {
-  border: 3px solid black;
+img {
+  width: 40%;
+}
+.fightAfterCont {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 30px;
+}
+ul {
+  justify-content: center;
+  align-items: center;
+  padding-left: 20px;
+
+}
+li {
+  list-style: none;
+}
+.headline {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+}
+.buttonCont {
+  display: flex;
+  justify-content: flex-end;
+
+}
+#playAgainBtn {
+  padding: 5px;
+}
+.fightCont {
+  display: flex;
+  justify-content: space-around;
+}
+.hamsterCont {
+  display: flex;
+  justify-content: center;
+}
+.nameCont {
+  display: flex;
+  justify-content: space-around;
 }

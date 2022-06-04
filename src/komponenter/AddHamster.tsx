@@ -1,25 +1,30 @@
-import { Hamster } from "../AtomsAndModels/HamsterModel";
-import { useState } from "react";
+import { Hamster } from "../AtomsAndModels/PostHamster";
+import { useEffect, useState } from "react";
 import { fixUrl } from "../utils";
+import '../styles/AddHamsters.css'
 
 const AddHamster = () => {
-  const [age, changeAge] = useState<String | null>(null)
-  const [favFood, changeFavFood] = useState<String | null>(null)
-  const [loves, changeLoves] = useState<String | null>(null)
-  const [name, changeName] = useState<String | null>(null)
-  const [img, changeImg] = useState<String | null>(null)
+  const [age, changeAge] = useState<string | null>(null)
+  const [favFood, changeFavFood] = useState<string | null>(null)
+  const [loves, changeLoves] = useState<string | null>(null)
+  const [name, changeName] = useState<string | null>(null)
+  const [img, changeImg] = useState<string | null>(null)
 
-  // const HamsterObject: Hamster = {
-  //   age: Number(age),
-  //   defeats: 0,
-  //   favFood: favFood,
-  //   games: 0,
-  //   imgName: img,
-  //   loves: loves,
-  //   name: name,
-  //   uid: null,
-  //   wins: 0,
-  // }
+  let HamsterObject: Hamster = {
+    age: Number(age),
+    defeats: 0,
+    favFood: favFood,
+    games: 0,
+    imgName: 'hamster-2.jpg',
+    loves: loves,
+    name: name,
+    wins: 0,
+  }
+  useEffect(() => {
+    if(Number(age) > 0) {
+
+    }
+  }, [age])
 
   function sendHamster() {
     fetch(fixUrl('/hamsters'), {
@@ -33,13 +38,15 @@ const AddHamster = () => {
   }
 
   return (
-    <div className="add container">
-      <input type="text" placeholder="Ålder" id="" onChange={e => changeAge(e.target.value)}/>
-      <input type="text" placeholder="Favoritmat" id="" onChange={e => changeFavFood(e.target.value)}/>
-      <input type="text" placeholder="Gillar" id="" onChange={e => changeLoves(e.target.value)}/>
+    <div className="add-container">
+      <h1>Ladda upp en ny hamster här.</h1>
+      <h4>When you add a new hamster, it automatically get 0 wins, 0 defeats.</h4>
+      <input type="text" placeholder="Ålder i år" onChange={e => changeAge(e.target.value)}/>
+      <input type="text" placeholder="Favoritmat" onChange={e => changeFavFood(e.target.value)}/>
+      <input type="text" placeholder="Älskar att" id="" onChange={e => changeLoves(e.target.value)}/>
       <input type="text" placeholder="Namn" id="" onChange={e => changeName(e.target.value)}/>
-      <input type="text" placeholder="Bild" id="" onChange={e => changeImg(e.target.value)}/>
-      <button onClick={sendHamster}>Skicka in</button>
+      {/* <input type="text" placeholder="Bild" id="" onChange={e => changeImg(e.target.value)}/> */}
+      <button disabled={!validate} onClick={sendHamster}>Skicka in</button>
     </div>
   )
 }

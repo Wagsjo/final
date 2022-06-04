@@ -4,19 +4,19 @@ import { db } from "../firebase.js";
 import { collection, doc, getDocs, getDoc } from "firebase/firestore/lite";
 
 const hamsters = collection(db, "hamsters");
-var hamstersArr = [];
-orderData();
 
 async function orderData() {
+  let hamstersArr = [];
   const snapshot = await getDocs(hamsters);
   snapshot.forEach((doc) => {
-    hamstersArr.push({ ...doc.data(), id: doc.id });
+    hamstersArr.push({ ...doc.data()});
   });
   console.log("hamstersArr");
   return hamstersArr;
 }
 
-router.get("/random", (req, res) => {
+router.get("/random", async (req, res) => {
+  let hamstersArr = await orderData();
   const integ = Math.floor(Math.random() * hamstersArr.length);
   res.send(hamstersArr[integ]);
 });
@@ -49,7 +49,8 @@ router.get("/:id", (req, res) => {
   another();
 });
 
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
+  let hamstersArr = await orderData();
   res.send(hamstersArr);
 });
 

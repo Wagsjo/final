@@ -10,30 +10,23 @@ import Galleri from './komponenter/Galleri'
 import Home from './komponenter/Home'
 
 function App() {
-  // const [hamsterData, setData] = useState<string[] | null> (null)
-  // async function getData(): Promise<void> {
-  //   const response = await fetch(fixUrl('/fruits'))
-  //   const data = await response.json()
-  //   setData(data)
-  // }
+
   const [hamster, setHamster] = useRecoilState(hamsterObject)
 
     useEffect(() => {
     fetch(fixUrl('/hamsters'))
     .then(asd => asd.json())
     .then(show => {
+      console.log(show)
       setHamster(show)
     })
   }, [])
-
-
-
 
   return (
     <Router>
       <div className="App">
         <Header></Header>
-        
+
         <div className="content">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -42,11 +35,6 @@ function App() {
           </Routes>
         </div>
         <main>
-          {/* {<button onClick={getData}>¨get data from api</button>
-          <section> {hamsterData ? (
-            hamsterData.map(h => <p> {h} </p>)}
-          ) : "nej det har inte kommit än"} </section> */}
-          {/* <img src={fixUrl('/img/bild.jpg')} /> */}
         </main>
       </div>
     </Router>
