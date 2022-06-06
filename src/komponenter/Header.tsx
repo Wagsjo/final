@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import '../styles/Header.css'
 
 const Header = () => {
-
-
   return (
     <div>
       <header>

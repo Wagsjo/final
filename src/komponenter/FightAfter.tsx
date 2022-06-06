@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import '../styles/Fight.css'
 import { Hamster } from "../AtomsAndModels/HamsterModel"
 import { fixUrl } from "../utils"

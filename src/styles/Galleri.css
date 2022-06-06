@@ -14,8 +14,31 @@
   border: 3px solid brown;
 }
 .card-container {
-  border: 3px solid black;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  height: 100%;
+}
+.container {
+  width: 100%;
+  border: 3px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.hamsterCont {
+  display: flex;
+  justify-content: center;
+}
+.imgCont {
+  display: flex;
+  justify-content: center;
+}
+.card-container p {
+  width: 100%;
+  text-align: center;
+}
+#click-this {
+  font-size: larger;
+  border-bottom: 2px solid black;
 }

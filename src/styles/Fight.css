@@ -1,11 +1,13 @@
-img {
-  width: 40%;
+h1 {
+  border-bottom: 2px solid black;
+  text-align: center;
 }
 .fightAfterCont {
   display: flex;
   justify-content: center;
   align-items: center;
   padding-top: 30px;
+
 }
 ul {
   justify-content: center;
@@ -32,12 +34,20 @@ li {
 .fightCont {
   display: flex;
   justify-content: space-around;
+  height: 800px;
+
 }
 .hamsterCont {
   display: flex;
   justify-content: center;
+  position: relative;
 }
-.nameCont {
-  display: flex;
-  justify-content: space-around;
+img {
+  align-self: start;
+  padding-top: 50px;
+  width: 70%
+}
+h3 {
+  position: absolute;
+  padding-top: 10px;
 }

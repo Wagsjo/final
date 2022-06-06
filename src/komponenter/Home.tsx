@@ -3,7 +3,6 @@ import '../styles/Home.css'
 import { useRecoilValue, useRecoilState } from "recoil"
 import { hamsterObject } from "../AtomsAndModels/atoms"
 import { Hamster } from "../AtomsAndModels/HamsterModel"
-import { fixUrl } from "../utils"
 import Card from "./Card"
 
 const Home = () => {
@@ -26,9 +25,16 @@ const Home = () => {
 
   return (
     <div>
+      <div className="pop-hamster">
+        <h2>På Hamsterwars så tävlar hamstrar om vem som är sötast</h2>
+      </div>
+      <div className="pop-hamster">
+        <h3>Den populäraste hamstern just nu: </h3>
+      </div>
       <div className="container" >
         {cutest ? (
           <>
+
           <Card HamsterObj={cutest}></Card>
           </>) : 'No hamster to show right now'
         }

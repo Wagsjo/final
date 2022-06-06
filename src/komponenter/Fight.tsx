@@ -1,11 +1,10 @@
 import { useEffect, useState, useRef } from "react"
 import '../styles/Fight.css'
-import {useRecoilValue, useRecoilState} from 'recoil'
+import { useRecoilState } from 'recoil'
 import { hamsterObject } from "../AtomsAndModels/atoms"
-import { Hamster } from "../AtomsAndModels/HamsterModel"
 import { fixUrl } from "../utils"
 import FightAfter from "./FightAfter"
-
+import { Hamster } from "../AtomsAndModels/HamsterModel"
 
 const Fight = () => {
   const random = function() {
@@ -13,42 +12,30 @@ const Fight = () => {
   }
 
   const [hamsters, setHamster] = useRecoilState(hamsterObject)
-  const [randomHamster, setRandomHamster] = useState(hamsters[random()])
-  const [randomHamster2, setRandomHamster2] = useState(hamsters[random()])
-  const [tempRandomHamster, setTempRandomHamster] = useState(randomHamster)
-  const [tempRandomHamster2, setTempRandomHamster2] = useState(randomHamster2)
-  const [vote, setVote] = useState(true)
-  const [vote2, setVote2] = useState(true)
-  const [info, showInfo] = useState(true)
-  const [showHamster, setShowHamster] = useState(hamsters[random()])
-  const isMounted = useRef(false)
+  const [randomHamster, setRandomHamster] = useState<Hamster>(hamsters[random()])
+  const [randomHamster2, setRandomHamster2] = useState<Hamster>(hamsters[random()])
+  const [tempRandomHamster, setTempRandomHamster] = useState<Hamster>(randomHamster)
+  const [tempRandomHamster2, setTempRandomHamster2] = useState<Hamster>(randomHamster2)
+  const [vote, setVote] = useState<boolean>(true)
+  const [vote2, setVote2] = useState<boolean>(true)
+  const [info, showInfo] = useState<boolean>(true)
+  const [showHamster, setShowHamster] = useState<Hamster>(hamsters[random()])
+  const isMounted = useRef<boolean>(false)
   const previousValues = useRef({tempRandomHamster, tempRandomHamster2})
-  const [allowedToFetchGet, setAllowedToFetchGet] = useState(false)
-  const [allowedToFetchGet2, setAllowedToFetchGet2] = useState(true)
+  const [allowedToFetchGet, setAllowedToFetchGet] = useState<boolean>(false)
+  const [allowedToFetchGet2, setAllowedToFetchGet2] = useState<boolean>(true)
 
 
   useEffect(() => {
     if(vote === false && vote2 === true) {
       setShowHamster(randomHamster)
-      let updatedValueH = {games: randomHamster.games+1, wins: randomHamster.wins+1};
-      setTempRandomHamster(randomHamster => ({
-        ...randomHamster, ...updatedValueH
-      }))
-      let updatedValueH2 = {games: randomHamster2.games+1, defeats: randomHamster2.defeats+1};
-      setTempRandomHamster2(randomHamster2 => ({
-        ...randomHamster2, ...updatedValueH2
-      }))
+      setTempRandomHamster({games: randomHamster.games+1, age: randomHamster.age, name: randomHamster.name, wins: randomHamster.wins+1, defeats: randomHamster.defeats, uid: randomHamster.uid, favFood: randomHamster.favFood, loves: randomHamster.loves, imgName: randomHamster.imgName })
+      setTempRandomHamster2({games: randomHamster2.games+1, age: randomHamster2.age, name: randomHamster2.name, wins: randomHamster2.wins, defeats: randomHamster2.defeats+1, uid: randomHamster2.uid, favFood: randomHamster2.favFood, loves: randomHamster2.loves, imgName: randomHamster2.imgName })
     }
     if(vote2 === false && vote === true) {
       setShowHamster(randomHamster2)
-      let updatedValueH2 = {games: randomHamster2.games+1, wins: randomHamster2.wins+1};
-      let updatedValueH = {games: randomHamster.games+1, defeats: randomHamster.defeats+1};
-      setTempRandomHamster(randomHamster => ({
-        ...randomHamster, ...updatedValueH
-      }))
-      setTempRandomHamster2(randomHamster2 => ({
-        ...randomHamster2, ...updatedValueH2
-      }))
+      setTempRandomHamster({games: randomHamster.games+1, age: randomHamster.age, name: randomHamster.name, wins: randomHamster.wins, defeats: randomHamster.defeats+1, uid: randomHamster.uid, favFood: randomHamster.favFood, loves: randomHamster.loves, imgName: randomHamster.imgName })
+      setTempRandomHamster2({games: randomHamster2.games+1, age: randomHamster2.age, name: randomHamster2.name, wins: randomHamster2.wins+1, defeats: randomHamster2.defeats, uid: randomHamster2.uid, favFood: randomHamster2.favFood, loves: randomHamster2.loves, imgName: randomHamster2.imgName })
     }
   }, [vote, vote2])
 
@@ -111,15 +98,11 @@ const Fight = () => {
 
   return (
     <>
-    {randomHamster.games}
-    {randomHamster2.games}
     {vote && vote2 ? <h1>Tryck på den du tycker är sötast</h1> : ''}
 
       {vote && vote2 ?
       (<>
       <div className="fightCont">
-        <div className="nameCont">
-        </div>
         <div className="hamsterCont">
           <h3>{randomHamster.name}</h3>
           <img src={fixUrl('/img/' + randomHamster.imgName)} alt="" onClick={() => setVote(false)} />

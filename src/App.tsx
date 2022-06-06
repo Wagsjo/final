@@ -17,7 +17,6 @@ function App() {
     fetch(fixUrl('/hamsters'))
     .then(asd => asd.json())
     .then(show => {
-      console.log(show)
       setHamster(show)
     })
   }, [])

@@ -3,7 +3,6 @@ import { Hamster } from "../AtomsAndModels/HamsterModel"
 import { fixUrl } from "../utils"
 import {useRecoilState} from 'recoil'
 import { hamsterObject } from "../AtomsAndModels/atoms"
-import { useState } from 'react'
 
 interface Props {
   HamsterObj: Hamster;
@@ -12,31 +11,37 @@ interface Props {
 const Card = (prop:Props) => {
 
   const [hamsters, setHamsters] = useRecoilState (hamsterObject)
+
   function img(prop: { HamsterObj: { imgName: string } }) {
     return (
       <div className={'property-image'} style={{backgroundImage: `url(${fixUrl('/img/' + prop.HamsterObj.imgName)})`}}></div>
     )
   }
+  function promp(hamster: Hamster) {
+    let answer = prompt(`Skriv  \"${hamster.name}\" för att bekräfta borttagning av hamster`)
+    if(answer===hamster.name) {
+      del(hamster.uid)
+    }
+  }
 
-function del(id: string | null) {
-  // prompt('Säker på att du vill radera denna hamster?')
-  fetch(fixUrl(`/hamsters/${id}`), {
-      method: 'DELETE',
-    })
-    let newHamsters = hamsters.filter(h => {
-      if(h.uid !== id) {
-        return true
-      } else {
-        return false
-      }
-    })
-    setHamsters(newHamsters)
-}
+  function del(id: string | null) {
+    fetch(fixUrl(`/hamsters/${id}`), {
+        method: 'DELETE',
+      })
+      let newHamsters = hamsters.filter(h => {
+        if(h.uid !== id) {
+          return true
+        } else {
+          return false
+        }
+      })
+      setHamsters(newHamsters)
+    }
 
   return (
     <div>
       {prop.HamsterObj ?
-        (<div className='cont'  onClick={() => del(prop.HamsterObj.uid)}>
+        (<div className='cont' key={prop.HamsterObj.name} onClick={() => promp(prop.HamsterObj)}>
             <div className={'property-card'}>
               <a href="#">
                 {img(prop)}
@@ -55,7 +60,7 @@ function del(id: string | null) {
               </a>
             </div>
         </div>) :
-        <p> hejhej</p>}
+        <p> Laddar hamstrar..</p>}
 
       </div>
   )
