@@ -3,7 +3,6 @@ const router = express.Router();
 import { db } from "../firebase.js";
 import {
   collection,
-  doc,
   addDoc,
   setDoc,
   getDoc,

@@ -27,10 +27,3 @@ let newObj = {
   eats: "adsads"
 }
 updateDoc(asd, newObj)
-
-//delete djur
-/* deleteDoc(docPlant) */
-
-// const snapshot = await getDoc(docPlant)
-// const data = snapshot.data()
-// const animalRef = db.collection('animals')

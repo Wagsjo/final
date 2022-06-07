@@ -27,9 +27,9 @@ app.get("/", (req, res) => {
 
 app.use("/hamsters", read, post, put, dele);
 
-// app.get('*', (req, res) => {
-//   res.sendFile(distPath + 'index.html')
-// })
+app.get('*', (req, res) => {
+  res.sendFile(distPath + 'index.html')
+})
 
 const PORT = process.env.PORT || 1234;
 app.listen(PORT, () => {
