@@ -14,7 +14,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(distPath));
 app.use('/img', express.static(path.join(__dirname, "./backend/hamsterImages/")));
-console.log("dist:" + path.join(__dirname, "./backend/hamsterImages/"));
+console.log("dist:" + distPath);
 
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`, req.body);
