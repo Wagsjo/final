@@ -3,7 +3,7 @@ const app = express();
 import cors from "cors";
 import path from "path";
 const __dirname = path.resolve(path.dirname(""));
-const distPath = path.join(__dirname + "./../dist/");
+const distPath = path.join(__dirname + "./dist/");
 import read from "./routes/read.js";
 import post from "./routes/post.js";
 import put from "./routes/put.js";
